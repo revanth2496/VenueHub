@@ -103,7 +103,7 @@ def init_db():
         """)
         c.execute("CREATE TABLE IF NOT EXISTS app_settings(key TEXT PRIMARY KEY, value TEXT NOT NULL DEFAULT '')")
 
-        admin_count = c.execute("SELECT COUNT(*) AS total FROM users WHERE role='admin'").fetchone()['total']
+        admin_count = c.execute("SELECT COUNT(*) AS total FROM users WHERE role='admin'").fetchone()[0]
         if admin_count == 0:
             admin_email = os.environ.get('ADMIN_EMAIL', 'admin@venuehub.local').strip().lower()
             admin_password = os.environ.get('ADMIN_PASSWORD', '')

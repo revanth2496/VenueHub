@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<section class="page-heading"><p class="eyebrow">ADMIN CONTROL PANEL</p><h1>Settings</h1><p>Manage your administrator account and update the public venue information shown on VenueHub.</p></section>
+<div class="settings-sections">
+<section class="form-card"><h2>Admin account</h2><p class="muted">Change the administrator name, login email, or password.</p>
+<form method="post"><input type="hidden" name="action" value="profile"><div class="form-grid">
+<label>Admin name<input type="text" name="admin_name" value="{{ admin.name }}" required></label>
+<label>Admin login email<input type="email" name="admin_email" value="{{ admin.email }}" required></label></div>
+<div class="form-note">Leave the password fields blank if you only want to change the name or email. Your current password is required when setting a new password.</div>
+<label>Current password<input type="password" name="current_password" autocomplete="current-password" placeholder="Required only to change password"></label>
+<div class="form-grid"><label>New password<input type="password" name="new_password" minlength="8" autocomplete="new-password" placeholder="At least 8 characters"></label><label>Confirm new password<input type="password" name="confirm_password" minlength="8" autocomplete="new-password" placeholder="Re-enter new password"></label></div>
+<div class="form-actions"><button class="btn primary" type="submit">Save admin details</button></div></form></section>
+<section class="form-card"><h2>Venue / website details</h2><p class="muted">Edit your venue contact information whenever it changes.</p>
+<form method="post"><input type="hidden" name="action" value="venue">
+<label>Website / venue name<input type="text" name="venue_name" value="{{ settings.get('venue_name','VenueHub') }}" required></label>
+<div class="form-grid"><label>Contact email<input type="email" name="contact_email" value="{{ settings.get('contact_email','') }}"></label><label>Contact phone<input type="tel" name="contact_phone" value="{{ settings.get('contact_phone','') }}"></label></div>
+<label>Venue address<textarea name="venue_address" rows="3" placeholder="Enter your venue address">{{ settings.get('venue_address','') }}</textarea></label>
+<label>Short description<textarea name="venue_description" rows="3" placeholder="A short description of your venue">{{ settings.get('venue_description','') }}</textarea></label>
+<div class="form-actions"><button class="btn primary" type="submit">Save venue details</button></div></form></section>
+<div class="settings-tip"><strong>Other editable details</strong><p>Hall names, capacity, hourly rates and descriptions can be managed from the <a href="{{ url_for('admin_halls') }}">Halls</a> section. Booking requests and maintenance schedules are managed in their respective admin sections.</p></div>
+</div>{% endblock %}
